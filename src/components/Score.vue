@@ -4,14 +4,14 @@
           <img src="@/assets/logo.svg" alt="">
       </div>
       <div class="rounds">
-          <div class="h1">Round: {{ round }}</div>
-            <button v-if="round > 0" @click="wipeAllData()">Reset all</button>
+          <div class="h1">Round: {{ totalRounds }}</div>
+            <button v-if="totalRounds > 0" @click="wipeAllData()">Reset all</button>
           </div>
       <div class="points">
           <div class="points-card">
               <div class="title"> SCORE</div>
-              <div class="total-points" v-if=" score < 10">{{ '0'+ score }}</div>
-              <div class="total-points" v-else>{{ score }}</div>
+              <div class="total-points" v-if=" yourScore < 10">{{ '0'+ yourScore }}</div>
+              <div class="total-points" v-else>{{ yourScore }}</div>
           </div>
       </div>
   </div>
@@ -24,10 +24,14 @@ export default {
 setup(){
 
 },
-computed: mapState({
-     score: state => state.yourScore,
-     round: state => state.totalRounds
-}),
+// computed: mapState({
+//      score: state => state.yourScore,
+//      round: state => state.totalRounds
+// }),
+computed: {
+    ...mapState(['yourScore']),
+    ...mapState(['totalRounds'])
+},
 methods:{
      wipeAllData (){
         this.$store.commit('wipeAllData')
