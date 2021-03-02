@@ -49,13 +49,15 @@ export default {
             yourPick == 'paper' && compRandPick.value == 'rock' || 
             yourPick == 'scissors' && compRandPick.value == 'paper' ) {
                 winner.value = 'You'
-                // store.commit('incScore')
+                store.commit('incScore')
          } 
          else if(yourPick == compRandPick.value) {
              winner.value = 'tie'
          }
          else winner.value = 'Computer'
          console.log(yourPick, compRandPick);
+
+         store.commit('incRound')
     }
 
     function restartGame(){

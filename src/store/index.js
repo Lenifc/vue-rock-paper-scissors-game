@@ -5,7 +5,9 @@ export default createStore({
     openModal: false,
     choosen: '',
     options: ['rock', 'paper', 'scissors'],
-    ComputerPick: ''
+    ComputerPick: '',
+    totalRounds: localStorage.getItem('TotalRounds') ? localStorage.getItem('TotalRounds') : 0,
+    yourScore: localStorage.getItem('YourScore') ? localStorage.getItem('YourScore') : 0,
   },
   mutations: {
     toggleModal(state){
@@ -19,6 +21,19 @@ export default createStore({
       state.ComputerPick = state.options[getRandomNum]
       // console.log(getRandomNum);
       // console.log(state.ComputerPick);
+    },
+    incScore(state){
+      state.yourScore++
+      localStorage.setItem('YourScore', state.yourScore)
+    },
+    incRound(state){
+      state.totalRounds++
+      localStorage.setItem('TotalRounds', state.totalRounds)
+    },
+    wipeAllData(){
+      localStorage.removeItem('TotalRounds')
+      localStorage.removeItem('YourScore')
+
     }
   },
   actions: {
