@@ -8,6 +8,7 @@ export default createStore({
     ComputerPick: '',
     totalRounds: localStorage.getItem('TotalRounds') ? localStorage.getItem('TotalRounds') : 0,
     yourScore: localStorage.getItem('YourScore') ? localStorage.getItem('YourScore') : 0,
+    showResultPage: false
   },
   mutations: {
     toggleModal(state){
@@ -30,13 +31,30 @@ export default createStore({
       state.totalRounds++
       localStorage.setItem('TotalRounds', state.totalRounds)
     },
-    wipeAllData(){
+    wipeAllData(state){
+      state.totalRounds = 0;
+      state.yourScore = 0;
       localStorage.removeItem('TotalRounds')
       localStorage.removeItem('YourScore')
-
+    },
+    restartGame(state){
+      state.choosen = null;
+      state.ComputerPick = null
+    },
+    showResultPageState(state, boolean){
+      state.showResultPage = boolean
     }
   },
   actions: {
+    wipeAllData({commit}){
+      commit('wipeAllData')
+      commit('restartGame')
+      commit('showResultPageState', false)
+    },
+    restartGame({commit}){
+      commit('restartGame')
+      commit('showResultPageState', false)
+    }
   },
   modules: {
   }

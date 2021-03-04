@@ -18,11 +18,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, useStore } from 'vuex'
 
 export default {
 setup(){
+    const store = useStore()
 
+    function wipeAllData (){
+        store.dispatch('wipeAllData')
+    }
+    return { wipeAllData }
 },
 // computed: mapState({
 //      score: state => state.yourScore,
@@ -32,11 +37,6 @@ computed: {
     ...mapState(['yourScore']),
     ...mapState(['totalRounds'])
 },
-methods:{
-     wipeAllData (){
-        this.$store.commit('wipeAllData')
-    }
-}
 }
 </script>
 

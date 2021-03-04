@@ -1,14 +1,14 @@
 <template>
   <div class="game">
       <div class="center">
-          <div v-if="!nextStep" class="bg-triangle" >
+          <div v-if="!showResult" class="bg-triangle" >
               <div class="rock" @click="toNextStep($event)"><Rock /></div>
               <div class="paper" @click="toNextStep($event)"><Paper /></div>
               <div class="scissors" @click="toNextStep($event)"><Scissors /></div>
           </div>
       </div>
 
-      <nextStep v-if="nextStep" />
+      <nextStep v-if="showResult" />
       
   </div>
 </template>
@@ -18,12 +18,25 @@ import Rock from '../components/options/Rock.vue'
 import Paper from '../components/options/Paper.vue'
 import Scissors from '../components/options/Scissors.vue'
 import nextStep from '../components/nextStep.vue'
+import { useStore } from 'vuex'
+import { ref } from 'vue'
 
 export default {
-    data(){
-        return{
-            nextStep: false,
+    setup(){
+        const store = useStore();
+        const showResult = ref(store.state.showResultPage)
+
+    function toNextStep(e){
+        if(e.target.classList.contains("circle")){
+            store.commit('choosePick', e.currentTarget.classList.value) 
+            store.commit('showResultPageState', true)
+            store.commit('randomComputerPick')
+
+            // console.log(showResult.value, store.state.showResultPage);
         }
+    }
+        
+        return { showResult, toNextStep }
     },
 components: {
     Rock,
@@ -31,14 +44,9 @@ components: {
     Scissors,
     nextStep
 },
-methods:{
-    toNextStep(e){
-        if(e.target.classList.contains("circle")){
-            this.$store.commit('choosePick', e.currentTarget.classList.value) 
-            // console.log(this.choosen);
-            this.nextStep = !this.nextStep
-            this.$store.commit('randomComputerPick')
-        }
+watch: {
+    '$store.state.showResultPage': function (newVal){
+        this.showResult = newVal
     }
 }
 }

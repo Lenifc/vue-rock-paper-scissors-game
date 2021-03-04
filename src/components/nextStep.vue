@@ -40,7 +40,7 @@ import Scissors from '../components/options/Scissors.vue'
 export default {
     setup(){
         const store = useStore()
-        let yourPick = store.state.choosen
+        const yourPick = store.state.choosen
         const compRandPick =  ref('')
         const winner = ref('')
 
@@ -55,20 +55,20 @@ export default {
              winner.value = 'tie'
          }
          else winner.value = 'Computer'
-         console.log(yourPick, compRandPick);
+        //  console.log(yourPick, compRandPick);
 
          store.commit('incRound')
     }
 
     function restartGame(){
-        console.log('restart')
+        store.dispatch('restartGame')
     }
 
     onMounted(() => {
         setTimeout(() => {
             compRandPick.value = store.state.ComputerPick
             checkForWinner()
-        }, 1234);
+        }, 777);
     })
 
         return { yourPick, compRandPick, winner, checkForWinner, restartGame }
@@ -77,9 +77,6 @@ components: {
     Rock,
     Paper,
     Scissors
-},
-methods:{
-     
 },
 
 }
