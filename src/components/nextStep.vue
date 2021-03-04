@@ -32,7 +32,7 @@
 
 <script>
 import {useStore} from 'vuex'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import Rock from '../components/options/Rock.vue'
 import Paper from '../components/options/Paper.vue'
 import Scissors from '../components/options/Scissors.vue'
@@ -43,6 +43,7 @@ export default {
         const yourPick = store.state.choosen
         const compRandPick =  ref('')
         const winner = ref('')
+        let abortOnDestroy = ref()
 
         function checkForWinner(){
          if(yourPick == 'rock' && compRandPick.value == 'scissors' ||
@@ -65,10 +66,13 @@ export default {
     }
 
     onMounted(() => {
-        setTimeout(() => {
+        abortOnDestroy = setTimeout(() => {
             compRandPick.value = store.state.ComputerPick
             checkForWinner()
         }, 777);
+    }),
+    onBeforeUnmount(() =>{
+        clearTimeout(abortOnDestroy) // small fix to prevent increacing round score when destroy before onMounted is done
     })
 
         return { yourPick, compRandPick, winner, checkForWinner, restartGame }
