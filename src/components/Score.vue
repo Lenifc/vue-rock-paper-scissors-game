@@ -4,7 +4,7 @@
           <img src="@/assets/logo.svg" alt="">
       </div>
       <div class="rounds">
-          <div class="h1">Round: {{ totalRounds }}</div>
+          <h1>Round: {{ totalRounds }}</h1>
             <button v-if="totalRounds > 0" @click="wipeAllData()">Reset all</button>
           </div>
       <div class="points">
@@ -67,5 +67,26 @@ computed: {
     font-size: 3rem;
     font-weight: 700;
     color: var(--HeaderOutline);
+}
+
+.rounds{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.rounds h1{
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+.rounds button{
+    padding: 8px 16px;
+    color: var(--RadialGradientInside);
+    border:none;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 8px;
+    cursor: pointer;
 }
 </style>

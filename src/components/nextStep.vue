@@ -12,12 +12,12 @@
               </div>
 
             <div class="playAgain" v-if="winner">
-                <h1>{{ winner == 'tie' ? "DRAW" : winner + " won!!" }}</h1>
-                <button @click="restartGame()">Play again!</button>
+                <h1>{{ winner == 'draw' ? "DRAW" : 'You ' + (winner == "Computer" ? "Lose" : 'Win') }}</h1>
+                <button @click="restartGame()">Play again</button>
             </div>
 
               <div class="computerPick">
-                  <h2 class="description">The house picked {{  compRandPick || '...'}}</h2>
+                  <h2 class="description">house picked {{  compRandPick || '...'}}</h2>
                   <div class="emptyCircle">
                     <Rock v-if="compRandPick == 'rock'" />
                     <Paper v-if="compRandPick == 'paper'" />
@@ -53,7 +53,7 @@ export default {
                 store.commit('incScore')
          } 
          else if(yourPick == compRandPick.value) {
-             winner.value = 'tie'
+             winner.value = 'draw'
          }
          else winner.value = 'Computer'
         //  console.log(yourPick, compRandPick);
@@ -72,7 +72,7 @@ export default {
         }, 777);
     }),
     onBeforeUnmount(() =>{
-        clearTimeout(abortOnDestroy) // small fix to prevent increacing round score when destroy before onMounted is done
+        clearTimeout(abortOnDestroy) // small fix to prevent increasing round score when destroy before onMounted is done
     })
 
         return { yourPick, compRandPick, winner, checkForWinner, restartGame }
@@ -113,7 +113,32 @@ components: {
     background-color: rgba(0,0,0,0.2);
     width: 200px;
     height: 200px;
-    margin-top: 32px;
+    margin-top: 24px;
     align-self: center;
 }
+.playAgain{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.playAgain h1{
+    font-size: 2.25rem;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+.playAgain button{
+    padding: 16px 36px;
+    color: var(--RadialGradientInside);
+    border:none;
+    border-radius: 8px;
+    background: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1.5rem;
+    margin-top: 12px;
+    cursor: pointer;
+}
+
 </style>

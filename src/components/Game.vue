@@ -31,11 +31,9 @@ export default {
             store.commit('choosePick', e.currentTarget.classList.value) 
             store.commit('showResultPageState', true)
             store.commit('randomComputerPick')
-
             // console.log(showResult.value, store.state.showResultPage);
         }
     }
-        
         return { showResult, toNextStep }
     },
 components: {
@@ -85,16 +83,11 @@ watch: {
     background-size: 50%;
     background-repeat: no-repeat;
     background-position: center;
-    width: 150px;
-    height: 150px;
-}
-
-.inside-circle img{
-    height: 50%;
+    width: 100%;
+    height: 100%;
 }
 
 .bg-triangle{
-    /* display: none; */
     background: url("../assets/bg-triangle.svg");
     background-repeat: no-repeat;
     background-position: center;
