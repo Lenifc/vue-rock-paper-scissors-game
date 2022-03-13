@@ -1,4 +1,5 @@
-# minigame
+# Live version: https://lenifc.github.io/vue-rock-paper-scissors-game/
+Work still in progress
 
 ## Project setup
 ```
